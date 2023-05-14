@@ -1,5 +1,6 @@
 package com.rathercruel.translit.programmes;
 
+import static com.rathercruel.translit.programmes.Ukrainian.caseAlgorithm;
 import java.util.HashMap;
 
 /**
@@ -7,23 +8,23 @@ import java.util.HashMap;
  * @author rathercruel
  */
 
-public class Gajica extends Ukrainian {
+public class Iso9 extends Ukrainian {
     private static HashMap<String, String> alphabet = new HashMap<String, String>();
-    public Gajica(String message) {
+    public Iso9(String message) {
         alphabet.put("'", "'");
         alphabet.put("а", "a");
         alphabet.put("б", "b");
         alphabet.put("в", "v");
         alphabet.put("г", "g");
-        alphabet.put("ґ", "g");
+        alphabet.put("ґ", "g̀");
         alphabet.put("д", "d");
         alphabet.put("е", "e");
-        alphabet.put("є", "je");
+        alphabet.put("є", "ê");
         alphabet.put("ж", "ž");
         alphabet.put("з", "z");
-        alphabet.put("и", "y");
-        alphabet.put("і", "i");
-        alphabet.put("ї", "ji");
+        alphabet.put("и", "i");
+        alphabet.put("і", "ì");
+        alphabet.put("ї", "ï");
         alphabet.put("й", "j");
         alphabet.put("к", "k");
         alphabet.put("л", "l");
@@ -40,11 +41,11 @@ public class Gajica extends Ukrainian {
         alphabet.put("ц", "c");
         alphabet.put("ч", "č");
         alphabet.put("ш", "š");
-        alphabet.put("щ", "šč");
-        alphabet.put("ь", "j");
-        alphabet.put("ю", "ju");
-        alphabet.put("я", "ja");
-
+        alphabet.put("щ", "ŝ");
+        alphabet.put("ь", "ʹ");
+        alphabet.put("ю", "û");
+        alphabet.put("я", "â");
+        
         char nextLetter = 0;
         boolean isNextLetterUpper = false;
         for(int index = 0; index < message.length(); index++) {

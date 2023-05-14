@@ -1,5 +1,9 @@
 package com.rathercruel.translit.programmes;
 
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import javax.swing.Timer;
+
 /**
  *
  * @author rathercruel
@@ -9,10 +13,38 @@ public class GUI extends javax.swing.JFrame {
 
     /**
      * Creates new form GUI
+     * @param windowTitle
      */
+    
+    private Timer timer;
+    
     public GUI(String windowTitle) {
         initComponents();
         this.setTitle(windowTitle);
+        
+        // ! ВРЕМЕННЫЙ КОСТЫЛЬ
+        timer = new Timer(100, e -> {
+            convertUkrainianMethod();
+            convertBelarusianMethod();
+        });
+        timer.start();
+        ukrainianCheckBox.addItemListener(
+            new ItemListener() {
+              @Override
+              public void itemStateChanged(ItemEvent e) {
+                 ukrainianInput.setLineWrap( e.getStateChange() == ItemEvent.SELECTED );
+                 ukrainianOutput.setLineWrap( e.getStateChange() == ItemEvent.SELECTED );
+              }
+        } );
+        
+        belarusianCheckBox.addItemListener(
+            new ItemListener() {
+              @Override
+              public void itemStateChanged(ItemEvent e) {
+                 belarusianInput.setLineWrap( e.getStateChange() == ItemEvent.SELECTED );
+                 belarusianOutput.setLineWrap( e.getStateChange() == ItemEvent.SELECTED );
+              }
+        } );
     }
 
     /**
@@ -25,213 +57,274 @@ public class GUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        jTextArea5 = new javax.swing.JTextArea();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        jTextArea6 = new javax.swing.JTextArea();
-        jButton3 = new javax.swing.JButton();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jCheckBox3 = new javax.swing.JCheckBox();
+        guiTabs = new javax.swing.JTabbedPane();
+        ukrainian = new javax.swing.JPanel();
+        ukrainianTitle = new javax.swing.JLabel();
+        ukrainianInputScrollPane = new javax.swing.JScrollPane();
+        ukrainianInput = new javax.swing.JTextArea();
+        ukrainianOutputScrollPane = new javax.swing.JScrollPane();
+        ukrainianOutput = new javax.swing.JTextArea();
+        ukrainianCopyButton = new javax.swing.JButton();
+        ukrainianComboBox = new javax.swing.JComboBox<>();
+        ukrainianCheckBox = new javax.swing.JCheckBox();
+        belarusian = new javax.swing.JPanel();
+        belarusianTitle = new javax.swing.JLabel();
+        belarusianInputScrollPane = new javax.swing.JScrollPane();
+        belarusianInput = new javax.swing.JTextArea();
+        belarusianOutputScrollPane = new javax.swing.JScrollPane();
+        belarusianOutput = new javax.swing.JTextArea();
+        belarusianCopyButton = new javax.swing.JButton();
+        belarusianComboBox = new javax.swing.JComboBox<>();
+        belarusianCheckBox = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTabbedPane1.setMinimumSize(new java.awt.Dimension(78, 372));
-        jTabbedPane1.setPreferredSize(new java.awt.Dimension(838, 369));
+        guiTabs.setMinimumSize(new java.awt.Dimension(78, 372));
+        guiTabs.setPreferredSize(new java.awt.Dimension(838, 369));
 
-        jLabel1.setFont(new java.awt.Font("Inter", 0, 18)); // NOI18N
-        jLabel1.setText("Perekłady swój text tut:");
-        jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        ukrainianTitle.setFont(new java.awt.Font("Inter", 0, 18)); // NOI18N
+        ukrainianTitle.setText("Perekłady swój text tut:");
+        ukrainianTitle.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        ukrainianInput.setColumns(20);
+        ukrainianInput.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        ukrainianInput.setRows(5);
+        ukrainianInputScrollPane.setViewportView(ukrainianInput);
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
+        ukrainianOutput.setEditable(false);
+        ukrainianOutput.setColumns(20);
+        ukrainianOutput.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        ukrainianOutput.setRows(5);
+        ukrainianOutputScrollPane.setViewportView(ukrainianOutput);
+        ukrainianOutput.getAccessibleContext().setAccessibleName("ukrainianTranslit");
 
-        jButton1.setText("Copy");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        ukrainianCopyButton.setText("Copy");
+        ukrainianCopyButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                ukrainianCopyButtonActionPerformed(evt);
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Abecadło", "Jirečkivka", "Psevdo-Jirečkivka", "Official KMU 2010", "ТКПН combo", "ТКПН diac", "ТКПН intl", "ISO9" }));
-
-        jCheckBox1.setText("Word Warp");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        ukrainianComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Abecadło", "Jirečkivka", "Psevdo-Jirečkivka", "Official KMU 2010", "ТКПН combo", "ТКПН diac", "ТКПН intl", "ISO9" }));
+        ukrainianComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                ukrainianComboBoxActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        ukrainianCheckBox.setText("Word Warp");
+        ukrainianCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ukrainianCheckBoxActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout ukrainianLayout = new javax.swing.GroupLayout(ukrainian);
+        ukrainian.setLayout(ukrainianLayout);
+        ukrainianLayout.setHorizontalGroup(
+            ukrainianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ukrainianLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                .addGroup(ukrainianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ukrainianLayout.createSequentialGroup()
+                        .addComponent(ukrainianTitle)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(ukrainianLayout.createSequentialGroup()
+                        .addGroup(ukrainianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(ukrainianLayout.createSequentialGroup()
+                                .addComponent(ukrainianCopyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCheckBox1)
+                                .addComponent(ukrainianCheckBox)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 857, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1))
+                                .addComponent(ukrainianComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(ukrainianOutputScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 857, Short.MAX_VALUE)
+                            .addComponent(ukrainianInputScrollPane))
                         .addContainerGap())))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        ukrainianLayout.setVerticalGroup(
+            ukrainianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ukrainianLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(jLabel1)
+                .addComponent(ukrainianTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ukrainianInputScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ukrainianOutputScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(ukrainianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ukrainianCopyButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ukrainianCheckBox)
+                    .addComponent(ukrainianComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Ukrajinśka", jPanel1);
+        guiTabs.addTab("Ukrajinśka", ukrainian);
 
-        jLabel3.setFont(new java.awt.Font("Inter", 0, 18)); // NOI18N
-        jLabel3.setText("Pierakladzicie svoj text tut:");
-        jLabel3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        belarusianTitle.setFont(new java.awt.Font("Inter", 0, 18)); // NOI18N
+        belarusianTitle.setText("Pierakladzicie svoj text tut:");
+        belarusianTitle.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
-        jTextArea5.setColumns(20);
-        jTextArea5.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
-        jTextArea5.setRows(5);
-        jScrollPane5.setViewportView(jTextArea5);
+        belarusianInput.setColumns(20);
+        belarusianInput.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        belarusianInput.setRows(5);
+        belarusianInputScrollPane.setViewportView(belarusianInput);
 
-        jTextArea6.setColumns(20);
-        jTextArea6.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
-        jTextArea6.setRows(5);
-        jScrollPane6.setViewportView(jTextArea6);
+        belarusianOutput.setEditable(false);
+        belarusianOutput.setColumns(20);
+        belarusianOutput.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        belarusianOutput.setRows(5);
+        belarusianOutputScrollPane.setViewportView(belarusianOutput);
 
-        jButton3.setText("Copy");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        belarusianCopyButton.setText("Copy");
+        belarusianCopyButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                belarusianCopyButtonActionPerformed(evt);
             }
         });
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aficyjnaja", "Tradycyjnaja" }));
+        belarusianComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aficyjnaja", "Tradycyjnaja" }));
 
-        jCheckBox3.setText("Word Warp");
-        jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
+        belarusianCheckBox.setText("Word Warp");
+        belarusianCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox3ActionPerformed(evt);
+                belarusianCheckBoxActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout belarusianLayout = new javax.swing.GroupLayout(belarusian);
+        belarusian.setLayout(belarusianLayout);
+        belarusianLayout.setHorizontalGroup(
+            belarusianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(belarusianLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                .addGroup(belarusianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(belarusianLayout.createSequentialGroup()
+                        .addComponent(belarusianTitle)
                         .addGap(0, 642, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(belarusianLayout.createSequentialGroup()
+                        .addGroup(belarusianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(belarusianLayout.createSequentialGroup()
+                                .addComponent(belarusianCopyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCheckBox3)
+                                .addComponent(belarusianCheckBox)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane6)
-                            .addComponent(jScrollPane5))
+                                .addComponent(belarusianComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(belarusianOutputScrollPane)
+                            .addComponent(belarusianInputScrollPane))
                         .addContainerGap())))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        belarusianLayout.setVerticalGroup(
+            belarusianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(belarusianLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(jLabel3)
+                .addComponent(belarusianTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(belarusianInputScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(belarusianOutputScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jCheckBox3)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(belarusianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(belarusianCopyButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(belarusianCheckBox)
+                    .addComponent(belarusianComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Biełaruskaja", jPanel2);
+        guiTabs.addTab("Biełaruskaja", belarusian);
 
-        getContentPane().add(jTabbedPane1, java.awt.BorderLayout.CENTER);
+        getContentPane().add(guiTabs, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+    private void ukrainianCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ukrainianCheckBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    }//GEN-LAST:event_ukrainianCheckBoxActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void ukrainianCopyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ukrainianCopyButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_ukrainianCopyButtonActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void belarusianCopyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_belarusianCopyButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_belarusianCopyButtonActionPerformed
 
-    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
+    private void belarusianCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_belarusianCheckBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox3ActionPerformed
+    }//GEN-LAST:event_belarusianCheckBoxActionPerformed
 
+    private void ukrainianComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ukrainianComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ukrainianComboBoxActionPerformed
+    
+    public void convertUkrainianMethod() {
+        String userTextAreaInput = ukrainianInput.getText();
+        String itemValue = ukrainianComboBox.getSelectedItem().toString();
+        // Jirečkivka, Official KMU 2010, ТКПН combo, ТКПН diac, ТКПН intl, ISO9
+        switch (itemValue) {
+            case "Psevdo-Jirečkivka" -> {
+                Jireckivka jireckivka = new Jireckivka(userTextAreaInput);
+                ukrainianOutput.setText(jireckivka.getOutput());
+            }
+            case "Abecadło" -> {
+                Abecadlo abecadlo = new Abecadlo(userTextAreaInput);
+                ukrainianOutput.setText(abecadlo.getOutput());
+            }
+            case "ТКПН diac" -> {
+                TkpnDiac tkpnDiac = new TkpnDiac(userTextAreaInput);
+                ukrainianOutput.setText(tkpnDiac.getOutput());
+            }
+            case "ISO9" -> {
+                Iso9 iso9 = new Iso9(userTextAreaInput);
+                ukrainianOutput.setText(iso9.getOutput());
+            }
+            default -> {
+                Abecadlo abecadlo = new Abecadlo(userTextAreaInput);
+                ukrainianOutput.setText(abecadlo.getOutput());
+            }
+        }
+    }
+    
+    // TODO: Make Belarusian Class and latin projects;
+    public void convertBelarusianMethod() {
+        String userTextAreaInput = belarusianInput.getText();
+        String itemValue = belarusianComboBox.getSelectedItem().toString();
+        // Jirečkivka, Official KMU 2010, ТКПН combo, ТКПН diac, ТКПН intl, ISO9
+        switch (itemValue) {
+            case "Aficyjnaja" -> {
+                Belarusian.alphabet.put("л", "l");
+                Belarusian.softLetters.put("л", "ĺ");
+                Belarusian belarusian = new Belarusian(userTextAreaInput);
+                belarusianOutput.setText(belarusian.getOutput());
+            }
+            case "Tradycyjnaja" -> {
+                Belarusian.alphabet.put("л", "ł");
+                Belarusian.softLetters.put("л", "l");
+                Belarusian belarusian = new Belarusian(userTextAreaInput);
+                belarusianOutput.setText(belarusian.getOutput());
+            }
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextArea jTextArea5;
-    private javax.swing.JTextArea jTextArea6;
+    private javax.swing.JPanel belarusian;
+    private javax.swing.JCheckBox belarusianCheckBox;
+    private javax.swing.JComboBox<String> belarusianComboBox;
+    private javax.swing.JButton belarusianCopyButton;
+    private javax.swing.JTextArea belarusianInput;
+    private javax.swing.JScrollPane belarusianInputScrollPane;
+    private javax.swing.JTextArea belarusianOutput;
+    private javax.swing.JScrollPane belarusianOutputScrollPane;
+    private javax.swing.JLabel belarusianTitle;
+    private javax.swing.JTabbedPane guiTabs;
+    private javax.swing.JPanel ukrainian;
+    private javax.swing.JCheckBox ukrainianCheckBox;
+    private javax.swing.JComboBox<String> ukrainianComboBox;
+    private javax.swing.JButton ukrainianCopyButton;
+    private javax.swing.JTextArea ukrainianInput;
+    private javax.swing.JScrollPane ukrainianInputScrollPane;
+    private javax.swing.JTextArea ukrainianOutput;
+    private javax.swing.JScrollPane ukrainianOutputScrollPane;
+    private javax.swing.JLabel ukrainianTitle;
     // End of variables declaration//GEN-END:variables
 }

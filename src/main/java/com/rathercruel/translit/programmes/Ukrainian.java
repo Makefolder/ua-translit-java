@@ -1,5 +1,7 @@
 package com.rathercruel.translit.programmes;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -8,13 +10,15 @@ import java.util.HashMap;
  */
 
 public class Ukrainian {
-    String output = "";
+    public String output = "";
+    public static boolean isChanged = false;
     static char[] vowels = new char[] {'а', 'е', 'є', 'і', 'ї', 'о', 'и', 'ю', 'я'};
 
     // Changes "sja" to "sia"
     public static String sjaToSia(
             HashMap<String, String> alphabet, String latinLetter, boolean isPreviousLetterConsonant
     ) {
+        // TODO: Change isPreviousLetterConsonant to false in liFix method or in the file that uses the method;
         if (alphabet.containsValue(latinLetter) && latinLetter.length() == 2 && latinLetter.charAt(0) == 'j'){
             if (isPreviousLetterConsonant) latinLetter = "i" + latinLetter.charAt(1);
         }
@@ -42,7 +46,28 @@ public class Ukrainian {
             String latinLetter, char loweredLetter, char nextLetter
     ) {
         if (softLetters.containsKey(String.valueOf(loweredLetter)) && nextLetter == 'ь') {
-            latinLetter = softLetters.get(String.valueOf(loweredLetter));;
+            latinLetter = softLetters.get(String.valueOf(loweredLetter));
+        }
+        return latinLetter;
+    }
+    
+    public static String liFix(
+            char loweredLetter, char nextLetter,
+            String latinLetter, String message, HashMap<String, String> vowels,
+            HashMap<String, String> alphabet,int index
+    ) {
+        if ("ł".equals(latinLetter) && index != message.length() - 1) {
+            String stringNextLetter = "" + nextLetter;
+            String nextLatin = alphabet.get(String.valueOf(nextLetter));
+            String secondLatinLetter = vowels.get(String.valueOf(nextLetter));
+            if (vowels.containsKey(stringNextLetter)) {
+                latinLetter = "l" + secondLatinLetter;
+            }
+            else {
+                if (nextLatin != null) latinLetter = "ł" + nextLatin;
+                else latinLetter = "ł" + nextLetter;
+            }
+            isChanged = true;
         }
         return latinLetter;
     }

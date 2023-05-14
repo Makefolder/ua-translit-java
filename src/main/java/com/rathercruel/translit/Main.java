@@ -11,6 +11,6 @@ import com.formdev.flatlaf.themes.FlatMacLightLaf;
 public class Main {
     public static void main(String[] args) {
         FlatMacLightLaf.setup();
-        new GUI("Ukrajinśka Łatynka").setVisible(true);
+        new GUI("Łacinka / Łatynka").setVisible(true);
     }
 }
