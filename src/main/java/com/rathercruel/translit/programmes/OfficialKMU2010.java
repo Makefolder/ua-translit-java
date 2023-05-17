@@ -10,11 +10,9 @@ import java.util.HashMap;
  * @author rathercruel
  */
 
-public class Jireckivka extends Ukrainian {
-    private static HashMap<String, String> softLetters = new HashMap<String, String>();
+public class OfficialKMU2010 extends Ukrainian {
     private static HashMap<String, String> alphabet = new HashMap<String, String>();
-    private static HashMap<String, String> ukrainianVowels = new HashMap<String, String>();
-    public Jireckivka(String message) {
+    public OfficialKMU2010(String message) {
         alphabet.put("'", "");
         alphabet.put("а", "a");
         alphabet.put("б", "b");
@@ -23,13 +21,13 @@ public class Jireckivka extends Ukrainian {
         alphabet.put("ґ", "g");
         alphabet.put("д", "d");
         alphabet.put("е", "e");
-        alphabet.put("є", "je");
-        alphabet.put("ж", "ž");
+        alphabet.put("є", "ye");
+        alphabet.put("ж", "zh");
         alphabet.put("з", "z");
         alphabet.put("и", "y");
         alphabet.put("і", "i");
-        alphabet.put("ї", "ji");
-        alphabet.put("й", "j");
+        alphabet.put("ї", "yi");
+        alphabet.put("й", "y");
         alphabet.put("к", "k");
         alphabet.put("л", "l");
         alphabet.put("м", "m");
@@ -41,30 +39,16 @@ public class Jireckivka extends Ukrainian {
         alphabet.put("т", "t");
         alphabet.put("у", "u");
         alphabet.put("ф", "f");
-        alphabet.put("х", "ch");
-        alphabet.put("ц", "c");
-        alphabet.put("ч", "č");
-        alphabet.put("ш", "š");
-        alphabet.put("щ", "šč");
+        alphabet.put("х", "kh");
+        alphabet.put("ц", "ts");
+        alphabet.put("ч", "ch");
+        alphabet.put("ш", "sh");
+        alphabet.put("щ", "shch");
         alphabet.put("ь", "");
-        alphabet.put("ю", "ju");
-        alphabet.put("я", "ja");
+        alphabet.put("ю", "yu");
+        alphabet.put("я", "ya");
 
-        softLetters.put("д", "ď");
-        softLetters.put("л", "ľ");
-        softLetters.put("т", "ť");
-        softLetters.put("з", "ź");
-        softLetters.put("н", "ń");
-        softLetters.put("р", "ŕ");
-        softLetters.put("с", "ś");
-        softLetters.put("ц", "ć");
-        
-        ukrainianVowels.put("я", "a");
-        ukrainianVowels.put("є", "e");
-        ukrainianVowels.put("ю", "u");
-        ukrainianVowels.put("і", "i");
-
-        char nextLetter = 0;        
+        char nextLetter = 0;
         boolean isNextLetterUpper = false;
         boolean isPreviousLetterConsonant = false;
         for(int index = 0; index < message.length(); index++) {
@@ -80,12 +64,11 @@ public class Jireckivka extends Ukrainian {
                 }
                 nextLetter = Character.toLowerCase(nextLetter);
             }
-            
-            // Makes letters soft
-            latinLetter = toSoftLetter(softLetters, latinLetter, loweredLetter, nextLetter);
-            
-            // ŕa ńa śa ... / [ря ня ся ...]
-            latinLetter = softBeforeVowels(loweredLetter, nextLetter, latinLetter, message, ukrainianVowels, alphabet, softLetters, index);
+
+            // Changes "sya" to "sia"
+            if (alphabet.containsValue(latinLetter) && latinLetter.length() == 2 && latinLetter.charAt(0) == 'y' && loweredLetter != 'ї') {
+                if (isPreviousLetterConsonant) latinLetter = "i" + latinLetter.charAt(1);
+            }
 
             output = caseAlgorithm(
                     alphabet, index, currentLetter, latinLetter, loweredLetter,
@@ -95,12 +78,6 @@ public class Jireckivka extends Ukrainian {
             isPreviousLetterConsonant = !(new String(vowels).contains(String.valueOf(loweredLetter))) && loweredLetter != ' ';
             if (loweredLetter == '\'' || loweredLetter == 'ь') isPreviousLetterConsonant = false;
             else if (!alphabet.containsKey(String.valueOf(loweredLetter))) isPreviousLetterConsonant = false;
-            
-            if (Ukrainian.isSofted) {
-                index++;
-                Ukrainian.isSofted = false;
-                isPreviousLetterConsonant = false;
-            }
         }
     }
     public String getOutput() {

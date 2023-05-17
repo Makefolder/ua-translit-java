@@ -8,19 +8,19 @@ import java.util.HashMap;
  * @author rathercruel
  */
 
-public class TkpnDiac extends Ukrainian {
+public class TkpnIntl extends Ukrainian {
 private static HashMap<String, String> alphabet = new HashMap<String, String>();
-    public TkpnDiac(String message) {
+    public TkpnIntl(String message) {
         alphabet.put("'", "'");
         alphabet.put("а", "a");
         alphabet.put("б", "b");
         alphabet.put("в", "v");
-        alphabet.put("г", "ğ");
+        alphabet.put("г", "gh");
         alphabet.put("ґ", "g");
         alphabet.put("д", "d");
         alphabet.put("е", "e");
-        alphabet.put("є", "ë");
-        alphabet.put("ж", "ž");
+        alphabet.put("є", "je");
+        alphabet.put("ж", "zh");
         alphabet.put("з", "z");
         alphabet.put("и", "y");
         alphabet.put("і", "i");
@@ -37,14 +37,14 @@ private static HashMap<String, String> alphabet = new HashMap<String, String>();
         alphabet.put("т", "t");
         alphabet.put("у", "u");
         alphabet.put("ф", "f");
-        alphabet.put("х", "x");
+        alphabet.put("х", "kh");
         alphabet.put("ц", "c");
-        alphabet.put("ч", "č");
-        alphabet.put("ш", "š");
-        alphabet.put("щ", "ŝ");
+        alphabet.put("ч", "ch");
+        alphabet.put("ш", "sh");
+        alphabet.put("щ", "shh");
         alphabet.put("ь", "j");
-        alphabet.put("ю", "ü");
-        alphabet.put("я", "ä");
+        alphabet.put("ю", "ju");
+        alphabet.put("я", "ja");
         
         char nextLetter = 0;
         boolean isNextLetterUpper = false;

@@ -10,11 +10,11 @@ import java.util.HashMap;
  * @author rathercruel
  */
 
-public class Jireckivka extends Ukrainian {
+public class CzechTranslit extends Ukrainian {
     private static HashMap<String, String> softLetters = new HashMap<String, String>();
     private static HashMap<String, String> alphabet = new HashMap<String, String>();
     private static HashMap<String, String> ukrainianVowels = new HashMap<String, String>();
-    public Jireckivka(String message) {
+    public CzechTranslit(String message) {
         alphabet.put("'", "");
         alphabet.put("а", "a");
         alphabet.put("б", "b");
@@ -53,18 +53,15 @@ public class Jireckivka extends Ukrainian {
         softLetters.put("д", "ď");
         softLetters.put("л", "ľ");
         softLetters.put("т", "ť");
-        softLetters.put("з", "ź");
-        softLetters.put("н", "ń");
-        softLetters.put("р", "ŕ");
-        softLetters.put("с", "ś");
-        softLetters.put("ц", "ć");
+        softLetters.put("н", "ň");
+        softLetters.put("р", "ř");
         
         ukrainianVowels.put("я", "a");
         ukrainianVowels.put("є", "e");
         ukrainianVowels.put("ю", "u");
         ukrainianVowels.put("і", "i");
 
-        char nextLetter = 0;        
+        char nextLetter = 0;
         boolean isNextLetterUpper = false;
         boolean isPreviousLetterConsonant = false;
         for(int index = 0; index < message.length(); index++) {
@@ -80,9 +77,16 @@ public class Jireckivka extends Ukrainian {
                 }
                 nextLetter = Character.toLowerCase(nextLetter);
             }
+
+            // Changes "sja" to "sia"
+            latinLetter = sjaToSia(alphabet, latinLetter, isPreviousLetterConsonant, loweredLetter);
             
-            // Makes letters soft
-            latinLetter = toSoftLetter(softLetters, latinLetter, loweredLetter, nextLetter);
+            if (softLetters.containsKey(String.valueOf(loweredLetter)) && nextLetter == 'ь') {
+                latinLetter = toSoftLetter(softLetters, latinLetter, loweredLetter, nextLetter);
+            } else {
+                // Makes letters soft with I (сьогодні -> siohodni but not śohodni)
+                latinLetter = toSoftLetterWithI(softLetters, index, message, latinLetter, loweredLetter, nextLetter);
+            }
             
             // ŕa ńa śa ... / [ря ня ся ...]
             latinLetter = softBeforeVowels(loweredLetter, nextLetter, latinLetter, message, ukrainianVowels, alphabet, softLetters, index);

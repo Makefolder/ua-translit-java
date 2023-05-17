@@ -1,5 +1,8 @@
 package com.rathercruel.translit.programmes;
 
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import javax.swing.Timer;
@@ -105,7 +108,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        ukrainianComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Abecadło", "Jirečkivka", "Psevdo-Jirečkivka", "Official KMU 2010", "ТКПН combo", "ТКПН diac", "ТКПН intl", "ISO9" }));
+        ukrainianComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Abecadło", "Jirečkivka", "Psevdo-Jirečkivka", "Official KMU 2010", "Na Chasi 2017", "Czech Translit", "ТКПН combo", "ТКПН diac", "ТКПН intl", "ISO9" }));
         ukrainianComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ukrainianComboBoxActionPerformed(evt);
@@ -243,10 +246,18 @@ public class GUI extends javax.swing.JFrame {
 
     private void ukrainianCopyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ukrainianCopyButtonActionPerformed
         // TODO add your handling code here:
+        String userOutput = ukrainianOutput.getText();
+        Clipboard clip = Toolkit.getDefaultToolkit().getSystemClipboard();
+        StringSelection strsel = new StringSelection(userOutput);
+        clip.setContents(strsel, strsel);
     }//GEN-LAST:event_ukrainianCopyButtonActionPerformed
 
     private void belarusianCopyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_belarusianCopyButtonActionPerformed
         // TODO add your handling code here:
+        String userOutput = belarusianOutput.getText();
+        Clipboard clip = Toolkit.getDefaultToolkit().getSystemClipboard();
+        StringSelection strsel = new StringSelection(userOutput);
+        clip.setContents(strsel, strsel);
     }//GEN-LAST:event_belarusianCopyButtonActionPerformed
 
     private void belarusianCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_belarusianCheckBoxActionPerformed
@@ -262,9 +273,13 @@ public class GUI extends javax.swing.JFrame {
         String itemValue = ukrainianComboBox.getSelectedItem().toString();
         // Jirečkivka, Official KMU 2010, ТКПН combo, ТКПН diac, ТКПН intl, ISO9
         switch (itemValue) {
-            case "Psevdo-Jirečkivka" -> {
+            case "Jirečkivka" -> {
                 Jireckivka jireckivka = new Jireckivka(userTextAreaInput);
                 ukrainianOutput.setText(jireckivka.getOutput());
+            }
+            case "Psevdo-Jirečkivka" -> {
+                PsevdoJireckivka psevdoJireckivka = new PsevdoJireckivka(userTextAreaInput);
+                ukrainianOutput.setText(psevdoJireckivka.getOutput());
             }
             case "Abecadło" -> {
                 Abecadlo abecadlo = new Abecadlo(userTextAreaInput);
@@ -273,6 +288,26 @@ public class GUI extends javax.swing.JFrame {
             case "ТКПН diac" -> {
                 TkpnDiac tkpnDiac = new TkpnDiac(userTextAreaInput);
                 ukrainianOutput.setText(tkpnDiac.getOutput());
+            }
+            case "ТКПН combo" -> {
+                TkpnCombo tkpnCombo = new TkpnCombo(userTextAreaInput);
+                ukrainianOutput.setText(tkpnCombo.getOutput());
+            }
+            case "ТКПН intl" -> {
+                TkpnIntl tkpnIntl = new TkpnIntl(userTextAreaInput);
+                ukrainianOutput.setText(tkpnIntl.getOutput());
+            }
+            case "Na Chasi 2017" -> {
+                NaChasi naChasi = new NaChasi(userTextAreaInput);
+                ukrainianOutput.setText(naChasi.getOutput());
+            }
+            case "Official KMU 2010" -> {
+                OfficialKMU2010 officialKMU2010 = new OfficialKMU2010(userTextAreaInput);
+                ukrainianOutput.setText(officialKMU2010.getOutput());
+            }
+            case "Czech Translit" -> {
+                CzechTranslit czechTranslit = new CzechTranslit(userTextAreaInput);
+                ukrainianOutput.setText(czechTranslit.getOutput());
             }
             case "ISO9" -> {
                 Iso9 iso9 = new Iso9(userTextAreaInput);
@@ -285,11 +320,10 @@ public class GUI extends javax.swing.JFrame {
         }
     }
     
-    // TODO: Make Belarusian Class and latin projects;
     public void convertBelarusianMethod() {
         String userTextAreaInput = belarusianInput.getText();
         String itemValue = belarusianComboBox.getSelectedItem().toString();
-        // Jirečkivka, Official KMU 2010, ТКПН combo, ТКПН diac, ТКПН intl, ISO9
+
         switch (itemValue) {
             case "Aficyjnaja" -> {
                 Belarusian.alphabet.put("л", "l");

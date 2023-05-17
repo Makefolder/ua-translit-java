@@ -8,9 +8,9 @@ import java.util.HashMap;
  * @author rathercruel
  */
 
-public class TkpnDiac extends Ukrainian {
+public class TkpnCombo extends Ukrainian {
 private static HashMap<String, String> alphabet = new HashMap<String, String>();
-    public TkpnDiac(String message) {
+    public TkpnCombo(String message) {
         alphabet.put("'", "'");
         alphabet.put("а", "a");
         alphabet.put("б", "b");
@@ -19,7 +19,7 @@ private static HashMap<String, String> alphabet = new HashMap<String, String>();
         alphabet.put("ґ", "g");
         alphabet.put("д", "d");
         alphabet.put("е", "e");
-        alphabet.put("є", "ë");
+        alphabet.put("є", "je");
         alphabet.put("ж", "ž");
         alphabet.put("з", "z");
         alphabet.put("и", "y");
@@ -43,8 +43,8 @@ private static HashMap<String, String> alphabet = new HashMap<String, String>();
         alphabet.put("ш", "š");
         alphabet.put("щ", "ŝ");
         alphabet.put("ь", "j");
-        alphabet.put("ю", "ü");
-        alphabet.put("я", "ä");
+        alphabet.put("ю", "ju");
+        alphabet.put("я", "ja");
         
         char nextLetter = 0;
         boolean isNextLetterUpper = false;

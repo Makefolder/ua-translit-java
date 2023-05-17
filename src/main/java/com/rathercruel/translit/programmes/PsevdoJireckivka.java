@@ -1,20 +1,15 @@
 package com.rathercruel.translit.programmes;
 
-import static com.rathercruel.translit.programmes.Ukrainian.caseAlgorithm;
-import static com.rathercruel.translit.programmes.Ukrainian.sjaToSia;
-import static com.rathercruel.translit.programmes.Ukrainian.toSoftLetterWithI;
-import static com.rathercruel.translit.programmes.Ukrainian.vowels;
 import java.util.HashMap;
 /**
  *
  * @author rathercruel
  */
 
-public class Jireckivka extends Ukrainian {
+public class PsevdoJireckivka extends Ukrainian {
     private static HashMap<String, String> softLetters = new HashMap<String, String>();
     private static HashMap<String, String> alphabet = new HashMap<String, String>();
-    private static HashMap<String, String> ukrainianVowels = new HashMap<String, String>();
-    public Jireckivka(String message) {
+    public PsevdoJireckivka(String message) {
         alphabet.put("'", "");
         alphabet.put("а", "a");
         alphabet.put("б", "b");
@@ -58,13 +53,8 @@ public class Jireckivka extends Ukrainian {
         softLetters.put("р", "ŕ");
         softLetters.put("с", "ś");
         softLetters.put("ц", "ć");
-        
-        ukrainianVowels.put("я", "a");
-        ukrainianVowels.put("є", "e");
-        ukrainianVowels.put("ю", "u");
-        ukrainianVowels.put("і", "i");
 
-        char nextLetter = 0;        
+        char nextLetter = 0;
         boolean isNextLetterUpper = false;
         boolean isPreviousLetterConsonant = false;
         for(int index = 0; index < message.length(); index++) {
@@ -80,12 +70,12 @@ public class Jireckivka extends Ukrainian {
                 }
                 nextLetter = Character.toLowerCase(nextLetter);
             }
-            
+
+            // Changes "sja" to "sia"
+            latinLetter = sjaToSia(alphabet, latinLetter, isPreviousLetterConsonant, loweredLetter);
+
             // Makes letters soft
-            latinLetter = toSoftLetter(softLetters, latinLetter, loweredLetter, nextLetter);
-            
-            // ŕa ńa śa ... / [ря ня ся ...]
-            latinLetter = softBeforeVowels(loweredLetter, nextLetter, latinLetter, message, ukrainianVowels, alphabet, softLetters, index);
+            latinLetter = toSoftLetterWithI(softLetters, index, message, latinLetter, loweredLetter, nextLetter);
 
             output = caseAlgorithm(
                     alphabet, index, currentLetter, latinLetter, loweredLetter,
@@ -95,12 +85,6 @@ public class Jireckivka extends Ukrainian {
             isPreviousLetterConsonant = !(new String(vowels).contains(String.valueOf(loweredLetter))) && loweredLetter != ' ';
             if (loweredLetter == '\'' || loweredLetter == 'ь') isPreviousLetterConsonant = false;
             else if (!alphabet.containsKey(String.valueOf(loweredLetter))) isPreviousLetterConsonant = false;
-            
-            if (Ukrainian.isSofted) {
-                index++;
-                Ukrainian.isSofted = false;
-                isPreviousLetterConsonant = false;
-            }
         }
     }
     public String getOutput() {

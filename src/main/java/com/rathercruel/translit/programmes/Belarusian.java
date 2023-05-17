@@ -77,7 +77,7 @@ public class Belarusian extends Ukrainian {
                 nextLetter = Character.toLowerCase(nextLetter);
             }
 
-            latinLetter = sjaToSia(alphabet, latinLetter, isPreviousLetterConsonant);
+            latinLetter = sjaToSia(alphabet, latinLetter, isPreviousLetterConsonant, loweredLetter);
             latinLetter = toSoftLetter(softLetters, latinLetter, loweredLetter, nextLetter);
             latinLetter = liFix(loweredLetter, nextLetter, latinLetter, message, belarusianVowels, alphabet, index);
 
@@ -87,7 +87,8 @@ public class Belarusian extends Ukrainian {
             );
             isNextLetterUpper = false;
             isPreviousLetterConsonant = !(new String(vowels).contains(String.valueOf(loweredLetter))) && loweredLetter != ' ';
-            if (currentLetter == '\'' || currentLetter == 'ь') isPreviousLetterConsonant = false;
+            if (loweredLetter == '\'' || loweredLetter == 'ь') isPreviousLetterConsonant = false;
+            else if (!alphabet.containsKey(String.valueOf(loweredLetter))) isPreviousLetterConsonant = false;
             
             if (Ukrainian.isChanged) {
                 index++;
