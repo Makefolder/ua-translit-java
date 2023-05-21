@@ -10,6 +10,14 @@ import com.formdev.flatlaf.themes.FlatMacLightLaf;
 
 public class Main {
     public static void main(String[] args) {
+        /*
+         * TEXT:
+         *   ------------------------------------------------------------------------------------------------------------
+         *   || [GUI]                                                                                                  ||
+         *   || Install the font (Inter)                                                                               ||
+         *   ------------------------------------------------------------------------------------------------------------
+         */
+        
         FlatMacLightLaf.setup();
         new GUI("Łacinka / Łatynka").setVisible(true);
     }

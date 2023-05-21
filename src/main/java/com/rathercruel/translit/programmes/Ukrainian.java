@@ -11,7 +11,7 @@ public class Ukrainian {
     public String output = "";
     public static boolean isSofted = false;
     public static boolean isChanged = false;
-    static char[] vowels = new char[] {'а', 'е', 'є', 'і', 'ї', 'о', 'и', 'ю', 'я'};
+    static char[] vowels = new char[] {'а', 'е', 'є', 'і', 'ї', 'о', 'и', 'у', 'ю', 'я'};
 
     // Changes "sja" to "sia"
     public static String sjaToSia(
@@ -76,7 +76,7 @@ public class Ukrainian {
             String latinLetter, String message, HashMap<String, String> vowels,
             HashMap<String, String> alphabet, HashMap<String, String> softLetters,int index
     ) {
-        if (softLetters.containsKey(String.valueOf(loweredLetter)) && index != message.length() - 1) {
+        if (softLetters.containsKey(String.valueOf(loweredLetter)) && index != message.length() - 1 && nextLetter != 'і') {
             String stringNextLetter = "" + nextLetter;
             String nextLatin = alphabet.get(String.valueOf(nextLetter));
             String secondLatinLetter = vowels.get(String.valueOf(nextLetter));

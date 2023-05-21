@@ -86,6 +86,7 @@ public class Abecadlo extends Ukrainian {
                     alphabet, index, currentLetter, latinLetter, loweredLetter,
                     nextLetter, isNextLetterUpper, output, message
             );
+            
             isNextLetterUpper = false;
             isPreviousLetterConsonant = !(new String(vowels).contains(String.valueOf(loweredLetter))) && loweredLetter != ' ';
             if (loweredLetter == '\'' || loweredLetter == 'ь') isPreviousLetterConsonant = false;
